@@ -1,0 +1,8 @@
+<model>
+    <import path="counter_model.js"/>
+    <interface class="CounterModel">
+        <function       name="countUp"  path="countUp"  locale="local"/>
+        <function       name="reset"    path="reset"    locale="local"/>
+        <message-porter name="onChange" path="onChange" locale="local"/>
+    </interface>
+</model>

@@ -1,0 +1,37 @@
+.DS_Store
+
+# android
+/project/android/.idea
+
+# https://github.com/github/gitignore/blob/main/Global/Xcode.gitignore
+# https://qiita.com/higan96/items/36d3877a85ab8fc36ea7
+
+## User settings
+xcuserdata/
+
+## Xcode 8 and earlier
+*.xcscmblueprint
+*.xccheckout
+
+### private settings for Xcode (window size, bookmark, break point, etc)
+### .pbxuser:       http://lists.apple.com/archives/xcode-users/2004/Jan/msg00193.html
+### .mode1v3:       http://lists.apple.com/archives/xcode-users/2007/Oct/msg00465.html
+### .mode2v3:       http://lists.apple.com/archives/xcode-users/2007/Oct/msg00465.html
+### .perspectivev3: http://stackoverflow.com/questions/5223297/xcode-projects-what-is-a-perspectivev3-file
+*.pbxuser
+*.mode1v3
+*.mode2v3
+*.perspectivev3
+### exclude default setting files for above private settings from gitignore
+!default.pbxuser
+!default.mode1v3
+!default.mode2v3
+!default.perspectivev3
+
+Output
+
+# Node.js
+node_modules/
+
+# project app resource
+/project/app_res/
