@@ -1,0 +1,458 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 5.9.2 (swiftlang-5.9.2.2.56 clang-1500.1.0.2.5)
+// swift-module-flags: -target x86_64-apple-ios14.0-simulator -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name alier
+// swift-module-flags-ignorable: -enable-bare-slash-regex
+import AVFoundation
+import Combine
+import Foundation
+import MediaPlayer
+import SQLite3
+import SafariServices
+import Swift
+import SwiftUI
+import UIKit
+import UniformTypeIdentifiers
+import UserNotifications
+import UserNotificationsUI
+import WebKit
+import _Concurrency
+import _PhotosUI_SwiftUI
+import _StringProcessing
+import _SwiftConcurrencyShims
+@_exported import alier
+import os
+public struct SQLiteError : Swift.Error {
+}
+public struct GenericError : Swift.Error {
+}
+public enum DBError : Swift.Error {
+  case sqliteError(code: Swift.Int32, message: Swift.String)
+  case genericError(message: Swift.String, cause: (any Swift.Error)? = nil)
+}
+extension alier.DBError : Foundation.LocalizedError {
+  public var errorDescription: Swift.String? {
+    get
+  }
+}
+public enum SQLResult {
+  case success(records: [[Swift.String : Any?]]? = nil)
+  case failure(message: Swift.String? = nil)
+}
+@_hasMissingDesignatedInitializers public class SQLiteDatabase {
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers public class DeferredSQLiteOpen {
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers final public class _AlierDB {
+  final public func addDB(name: Swift.String, version: Swift.Int32, onConfigure on_configure: ((alier.SQLiteDatabase) throws -> Swift.Void)? = nil, onCreate on_create: ((alier.SQLiteDatabase) throws -> Swift.Void)? = nil, onUpgrade on_upgrade: ((alier.SQLiteDatabase, Swift.Int32, Swift.Int32) throws -> Swift.Void)? = nil, onDowngrade on_downgrade: ((alier.SQLiteDatabase, Swift.Int32, Swift.Int32) throws -> Swift.Void)? = nil, onOpen on_open: ((alier.SQLiteDatabase) throws -> Swift.Void)? = nil) throws
+  final public func close() throws
+  final public func close(name: Swift.String) throws
+  final public func startTransaction(name: Swift.String, mode: Swift.String) throws
+  final public func commit(name: Swift.String) throws
+  final public func rollback(name: Swift.String) throws
+  final public func putSavepoint(name: Swift.String, savepoint: Swift.String) throws
+  final public func rollbackTo(name: Swift.String, savepoint: Swift.String) throws
+  final public func execute(name: Swift.String, statement: Swift.String, params: Swift.Array<Any?>) -> alier.SQLResult
+  @objc deinit
+}
+public typealias ByteArray = [Swift.UInt8]
+extension Foundation.URL {
+  public enum _DirectoryHint {
+    case isDirectory
+    case notDirectory
+    case checkFileSystem
+    case inferFromPath
+    public static func == (a: Foundation.URL._DirectoryHint, b: Foundation.URL._DirectoryHint) -> Swift.Bool
+    public func hash(into hasher: inout Swift.Hasher)
+    public var hashValue: Swift.Int {
+      get
+    }
+  }
+  public init(_filePath: Swift.String, _directoryHint: Foundation.URL._DirectoryHint = .checkFileSystem, _relativeTo: Foundation.URL? = nil)
+  public func _path(percentEncoded: Swift.Bool = true) -> Swift.String
+  public func _query(percentEncoded: Swift.Bool = true) -> Swift.String?
+  public func _appending(path: Swift.String, directoryHint: Foundation.URL._DirectoryHint = .checkFileSystem) -> Foundation.URL
+}
+@_hasMissingDesignatedInitializers public class AlierLog {
+  public enum LogLevel : Swift.Int {
+    case DEBUG
+    case INFO
+    case WARN
+    case ERROR
+    case FAULT
+    public init?(rawValue: Swift.Int)
+    public typealias RawValue = Swift.Int
+    public var rawValue: Swift.Int {
+      get
+    }
+  }
+  public static func filter(level: alier.AlierLog.LogLevel, start: Swift.Int, end: Swift.Int)
+  public static func loadLogFilter()
+  public static func getLogFilter() -> Swift.String
+  public static func d(id: Swift.Int, message: Swift.String)
+  public static func d(_ id: Swift.Int, _ message: Swift.String)
+  public static func i(id: Swift.Int, message: Swift.String)
+  public static func w(id: Swift.Int, message: Swift.String)
+  public static func e(id: Swift.Int, message: Swift.String)
+  public static func f(id: Swift.Int, message: Swift.String)
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers public class AlierDump {
+  public enum LogLevel : Swift.Int {
+    case DEBUG
+    case INFO
+    case WARN
+    case ERROR
+    case FAULT
+    public init?(rawValue: Swift.Int)
+    public typealias RawValue = Swift.Int
+    public var rawValue: Swift.Int {
+      get
+    }
+  }
+  public static func filter(level: alier.AlierDump.LogLevel, start: Swift.Int, end: Swift.Int)
+  public static func loadLogFilter()
+  public static func getLogFilter() -> Swift.String
+  public static func d(id: Swift.Int, message: Any)
+  public static func i(id: Swift.Int, message: Any)
+  public static func w(id: Swift.Int, message: Any)
+  public static func e(id: Swift.Int, message: Any)
+  public static func f(id: Swift.Int, message: Any)
+  @objc deinit
+}
+@objc public class _FileOperation : ObjectiveC.NSObject {
+  public init(update_needed: Swift.Bool = false)
+  @objc deinit
+}
+public struct ReturnView {
+  public var selectView: Swift.String
+  public var resourcePiker: alier.ResourcePiker
+  public init(selectView: Swift.String)
+  public func showView() -> SwiftUI.AnyView
+}
+public struct ResourcePiker : SwiftUI.View {
+  public var selectView: Swift.String
+  public init(selectView: Swift.String)
+  @_Concurrency.MainActor(unsafe) public var body: some SwiftUI.View {
+    get
+  }
+  public func showView(selectView: Swift.String) -> SwiftUI.AnyView
+  public typealias Body = @_opaqueReturnTypeOf("$s5alier13ResourcePikerV4bodyQrvp", 0) __
+}
+@_Concurrency.MainActor(unsafe) public struct MusicPicker : SwiftUI.UIViewControllerRepresentable {
+  @_Concurrency.MainActor(unsafe) public func makeCoordinator() -> alier.GetResourceCoordinator
+  @_Concurrency.MainActor(unsafe) public func makeUIViewController(context: SwiftUI.UIViewControllerRepresentableContext<alier.MusicPicker>) -> MediaPlayer.MPMediaPickerController
+  @_Concurrency.MainActor(unsafe) public func updateUIViewController(_ uiViewController: MediaPlayer.MPMediaPickerController, context: SwiftUI.UIViewControllerRepresentableContext<alier.MusicPicker>)
+  public typealias Body = Swift.Never
+  public typealias Coordinator = alier.GetResourceCoordinator
+  public typealias UIViewControllerType = MediaPlayer.MPMediaPickerController
+}
+@_Concurrency.MainActor(unsafe) public struct ImageAndMoviePicker_UIImagePickerController : SwiftUI.UIViewControllerRepresentable {
+  @_Concurrency.MainActor(unsafe) public func makeCoordinator() -> alier.GetResourceCoordinator
+  @_Concurrency.MainActor(unsafe) public func makeUIViewController(context: SwiftUI.UIViewControllerRepresentableContext<alier.ImageAndMoviePicker_UIImagePickerController>) -> UIKit.UIImagePickerController
+  @_Concurrency.MainActor(unsafe) public func updateUIViewController(_ uiViewController: UIKit.UIImagePickerController, context: SwiftUI.UIViewControllerRepresentableContext<alier.ImageAndMoviePicker_UIImagePickerController>)
+  public typealias Body = Swift.Never
+  public typealias Coordinator = alier.GetResourceCoordinator
+  public typealias UIViewControllerType = UIKit.UIImagePickerController
+}
+@_Concurrency.MainActor(unsafe) public struct ImageAndMoviePicker_PHPickerViewController : SwiftUI.UIViewControllerRepresentable {
+  @_Concurrency.MainActor(unsafe) public func makeCoordinator() -> alier.GetResourceCoordinator
+  @_Concurrency.MainActor(unsafe) public func makeUIViewController(context: SwiftUI.UIViewControllerRepresentableContext<alier.ImageAndMoviePicker_PHPickerViewController>) -> PhotosUI.PHPickerViewController
+  @_Concurrency.MainActor(unsafe) public func updateUIViewController(_ uiViewController: PhotosUI.PHPickerViewController, context: SwiftUI.UIViewControllerRepresentableContext<alier.ImageAndMoviePicker_PHPickerViewController>)
+  public typealias Body = Swift.Never
+  public typealias Coordinator = alier.GetResourceCoordinator
+  public typealias UIViewControllerType = PhotosUI.PHPickerViewController
+}
+@_Concurrency.MainActor(unsafe) public struct DocumentPickerController : SwiftUI.UIViewControllerRepresentable {
+  @_Concurrency.MainActor(unsafe) public func makeCoordinator() -> alier.GetResourceCoordinator
+  @_Concurrency.MainActor(unsafe) public func makeUIViewController(context: SwiftUI.UIViewControllerRepresentableContext<alier.DocumentPickerController>) -> UIKit.UIDocumentPickerViewController
+  @_Concurrency.MainActor(unsafe) public func updateUIViewController(_ uiViewController: UIKit.UIDocumentPickerViewController, context: SwiftUI.UIViewControllerRepresentableContext<alier.DocumentPickerController>)
+  public typealias Body = Swift.Never
+  public typealias Coordinator = alier.GetResourceCoordinator
+  public typealias UIViewControllerType = UIKit.UIDocumentPickerViewController
+}
+@objc @_Concurrency.MainActor(unsafe) public class GetResourceCoordinator : ObjectiveC.NSObject, UIKit.UINavigationControllerDelegate, MediaPlayer.MPMediaPickerControllerDelegate, UIKit.UIImagePickerControllerDelegate, PhotosUI.PHPickerViewControllerDelegate, UIKit.UIDocumentPickerDelegate {
+  @_Concurrency.MainActor(unsafe) public var parent: Any
+  @_Concurrency.MainActor(unsafe) public var url: alier.SelectView
+  @_Concurrency.MainActor(unsafe) public init(_ parent: Any, url: alier.SelectView)
+  @_Concurrency.MainActor(unsafe) @objc public func mediaPicker(_ mediaPicker: MediaPlayer.MPMediaPickerController, didPickMediaItems mediaItemCollection: MediaPlayer.MPMediaItemCollection)
+  @_Concurrency.MainActor(unsafe) @objc public func mediaPickerDidCancel(_ mediaPicker: MediaPlayer.MPMediaPickerController)
+  @_Concurrency.MainActor(unsafe) public func picker(_ picker: PhotosUI.PHPickerViewController, didFinishPicking results: [PhotosUI.PHPickerResult])
+  @_Concurrency.MainActor(unsafe) @objc public func documentPicker(_ controller: UIKit.UIDocumentPickerViewController, didPickDocumentAt url: Foundation.URL)
+  @_Concurrency.MainActor(unsafe) @objc public func documentPickerWasCancelled(_ controller: UIKit.UIDocumentPickerViewController)
+  @_Concurrency.MainActor(unsafe) public func sendSelectedResourceURI(uri: Swift.String)
+  @objc deinit
+}
+final public class SelectView : Foundation.ObservableObject {
+  @Combine.Published @_projectedValueProperty($urlPath) final public var urlPath: Swift.String {
+    get
+    @available(iOS 13.0, tvOS 13.0, watchOS 6.0, macOS 10.15, *)
+    set
+    @available(iOS 13.0, tvOS 13.0, watchOS 6.0, macOS 10.15, *)
+    _modify
+  }
+  final public var $urlPath: Combine.Published<Swift.String>.Publisher {
+    get
+    @available(iOS 14.0, tvOS 14.0, watchOS 7.0, macOS 11.0, *)
+    set
+  }
+  @Combine.Published @_projectedValueProperty($selectType) final public var selectType: Swift.String {
+    get
+    @available(iOS 13.0, tvOS 13.0, watchOS 6.0, macOS 10.15, *)
+    set
+    @available(iOS 13.0, tvOS 13.0, watchOS 6.0, macOS 10.15, *)
+    _modify
+  }
+  final public var $selectType: Combine.Published<Swift.String>.Publisher {
+    get
+    @available(iOS 14.0, tvOS 14.0, watchOS 7.0, macOS 11.0, *)
+    set
+  }
+  @Combine.Published @_projectedValueProperty($openSheet) final public var openSheet: Swift.Bool {
+    get
+    @available(iOS 13.0, tvOS 13.0, watchOS 6.0, macOS 10.15, *)
+    set
+    @available(iOS 13.0, tvOS 13.0, watchOS 6.0, macOS 10.15, *)
+    _modify
+  }
+  final public var $openSheet: Combine.Published<Swift.Bool>.Publisher {
+    get
+    @available(iOS 14.0, tvOS 14.0, watchOS 7.0, macOS 11.0, *)
+    set
+  }
+  @Combine.Published @_projectedValueProperty($returnView) final public var returnView: alier.ReturnView {
+    get
+    @available(iOS 13.0, tvOS 13.0, watchOS 6.0, macOS 10.15, *)
+    set
+    @available(iOS 13.0, tvOS 13.0, watchOS 6.0, macOS 10.15, *)
+    _modify
+  }
+  final public var $returnView: Combine.Published<alier.ReturnView>.Publisher {
+    get
+    @available(iOS 14.0, tvOS 14.0, watchOS 7.0, macOS 11.0, *)
+    set
+  }
+  public init(_ script_mediator: any alier.ScriptMediator)
+  final public func openPermission()
+  final public func openAudioPicker()
+  final public func openImageAndMovie()
+  final public func openDocumentPicker()
+  public typealias ObjectWillChangePublisher = Combine.ObservableObjectPublisher
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers final public class _ScriptMessageHandler : ObjectiveC.NSObject, WebKit.WKScriptMessageHandler {
+  @objc override dynamic public init()
+  @objc final public func userContentController(_ userContentController: WebKit.WKUserContentController, didReceive message: WebKit.WKScriptMessage)
+  final public func responseToJavaScript(_ resultData: Swift.String, _ id: Swift.Int)
+  @objc deinit
+}
+@_inheritsConvenienceInitializers @objc(DefaultNotification) open class DefaultNotification : ObjectiveC.NSObject {
+  @objc public func didReceive(_ notification: UserNotifications.UNNotification)
+  @objc override dynamic public init()
+  open func setTitle(title: Swift.String) -> Self
+  open func setMessage(message: Swift.String) -> Self
+  open func setChannelId(id: Swift.String) -> Self
+  open func setData(data: Swift.Dictionary<Swift.String, Any>) -> Self
+  open func setBadge(badge: Swift.Int) -> Self
+  open func setSound(soundUri: Swift.String?) -> Self
+  open func setImagePath(path: Swift.String) -> Self
+  open func setScheme(scheme: Swift.String) -> Self
+  open func setRepeat(_ key: Swift.String, _ value: Swift.Bool) -> Self
+  open func sendNotificationEventToJS(params: Any)
+  open func setBadgeNumber(badgeNumber: Swift.Int)
+  open func createNotification(payload: Swift.Dictionary<Swift.String, Any>, trigger: Swift.Dictionary<Swift.String, Any>)
+  open func scheduleNotification(manageId: Swift.String = "", trigger: Swift.Dictionary<Swift.String, Any> = [:]) -> Swift.Dictionary<Swift.String, Swift.String>
+  open func onReceive(data: Swift.Dictionary<Swift.String, Any>)
+  open func tappedBanner(data: Swift.Dictionary<Swift.String, Any>)
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers open class SimpleNotificationManager {
+  public func createNotification(payload: Swift.Dictionary<Swift.String, Any>, trigger: Swift.Dictionary<Swift.String, Any>) -> Swift.Dictionary<Swift.String, Swift.String>
+  public func deleteNotification(notificationId: Swift.String)
+  public func setBadgeNumber(number: Foundation.NSNumber)
+  @objc deinit
+}
+public func toJavaScriptValue<T>(_ value: T?) throws -> Swift.String
+public protocol ScriptMediator {
+  func _sendstat(_ message: Swift.String)
+  func _wait(_ message: Swift.String, action: @escaping () -> Swift.Void)
+  func callJavaScriptFunction(dispose: Swift.Bool, handle: alier.HandleObject, args: [Any?], completionHandler completion_handler: ((Any?) -> Swift.Void)?) throws
+  #if compiler(>=5.3) && $AsyncAwait
+  @available(iOS 15.0, *)
+  func callJavaScriptFunction(dispose: Swift.Bool, handle: alier.HandleObject, args: [Any?]) async throws -> Any?
+  #endif
+  func callJavaScriptFunction(functionName function_name: Swift.String, args: [Any?], completionHandler completion_handler: ((Any?) -> Swift.Void)?) throws
+  #if compiler(>=5.3) && $AsyncAwait
+  @available(iOS 15.0, *)
+  func callJavaScriptFunction(functionName function_name: Swift.String, args: [Any?]) async throws -> Any?
+  #endif
+  func registerFunction(isSync is_sync: Swift.Bool, functionName function_name: Swift.String, function: @escaping ([Any?]) -> Any?, completionHandler completion_handler: ((Any?) -> Swift.Void)?) throws
+  #if compiler(>=5.3) && $AsyncAwait
+  @available(iOS 15.0, *)
+  func registerFunction(isSync is_sync: Swift.Bool, functionName function_name: Swift.String, function: @escaping ([Any?]) -> Any?) async throws -> Any?
+  #endif
+  func registerFunction(isSync is_sync: Swift.Bool, functionName function_name: Swift.String, function: @escaping ([Any?]) throws -> Any?, completionHandler completion_handler: ((Any?) -> Swift.Void)?) throws
+  #if compiler(>=5.3) && $AsyncAwait
+  @available(iOS 15.0, *)
+  func registerFunction(isSync is_sync: Swift.Bool, functionName function_name: Swift.String, function: @escaping ([Any?]) throws -> Any?) async throws -> Any?
+  #endif
+  func replaceFunction(isSync is_sync: Swift.Bool, functionName function_name: Swift.String, function: @escaping ([Any?]) -> Any?, completionHandler completion_handler: ((Any?) -> Swift.Void)?)
+  #if compiler(>=5.3) && $AsyncAwait
+  @available(iOS 15.0, *)
+  func replaceFunction(isSync is_sync: Swift.Bool, functionName function_name: Swift.String, function: @escaping ([Any?]) -> Any?) async -> Any?
+  #endif
+  func replaceFunction(isSync is_sync: Swift.Bool, functionName function_name: Swift.String, function: @escaping ([Any?]) throws -> Any?, completionHandler completion_handler: ((Any?) -> Swift.Void)?)
+  #if compiler(>=5.3) && $AsyncAwait
+  @available(iOS 15.0, *)
+  func replaceFunction(isSync is_sync: Swift.Bool, functionName function_name: Swift.String, function: @escaping ([Any?]) throws -> Any?) async -> Any?
+  #endif
+}
+@_hasMissingDesignatedInitializers final public class JavaScriptEvaluator {
+  @objc deinit
+}
+public struct HandleObject : Swift.Codable, Swift.Equatable {
+  public static func == (lhs: alier.HandleObject, rhs: alier.HandleObject) -> Swift.Bool
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+extension Swift.String {
+  public init(_ handle: alier.HandleObject)
+}
+@objc @_inheritsConvenienceInitializers final public class _NativeFunctionInterface : ObjectiveC.NSObject, WebKit.WKScriptMessageHandler, WebKit.WKUIDelegate, alier.ScriptMediator {
+  final public var scriptEvaluator: alier.JavaScriptEvaluator? {
+    get
+    set(script_evaluator)
+  }
+  @objc override dynamic public init()
+  final public func callJavaScriptFunction(dispose: Swift.Bool = false, handle: alier.HandleObject, args: [Any?], completionHandler completion_handler: ((Any?) -> Swift.Void)?) throws
+  #if compiler(>=5.3) && $AsyncAwait
+  @available(iOS 15.0, *)
+  final public func callJavaScriptFunction(dispose: Swift.Bool = false, handle: alier.HandleObject, args: [Any?]) async throws -> Any?
+  #endif
+  final public func callJavaScriptFunction(functionName function_name: Swift.String, args: [Any?], completionHandler completion_handler: ((Any?) -> Swift.Void)?) throws
+  #if compiler(>=5.3) && $AsyncAwait
+  @available(iOS 15.0, *)
+  final public func callJavaScriptFunction(functionName function_name: Swift.String, args: [Any?]) async throws -> Any?
+  #endif
+  final public func registerFunction(isSync is_sync: Swift.Bool = false, functionName function_name: Swift.String, function: @escaping ([Any?]) -> Any?, completionHandler completion_handler: ((Any?) -> Swift.Void)?) throws
+  #if compiler(>=5.3) && $AsyncAwait
+  @available(iOS 15.0, *)
+  final public func registerFunction(isSync is_sync: Swift.Bool = false, functionName function_name: Swift.String, function: @escaping ([Any?]) -> Any?) async throws -> Any?
+  #endif
+  final public func registerFunction(isSync is_sync: Swift.Bool = false, functionName function_name: Swift.String, function: @escaping ([Any?]) throws -> Any?, completionHandler completion_handler: ((Any?) -> Swift.Void)?) throws
+  #if compiler(>=5.3) && $AsyncAwait
+  @available(iOS 15.0, *)
+  final public func registerFunction(isSync is_sync: Swift.Bool = false, functionName function_name: Swift.String, function: @escaping ([Any?]) throws -> Any?) async throws -> Any?
+  #endif
+  final public func replaceFunction(isSync is_sync: Swift.Bool = false, functionName function_name: Swift.String, function: @escaping ([Any?]) -> Any?, completionHandler completion_handler: ((Any?) -> Swift.Void)?)
+  #if compiler(>=5.3) && $AsyncAwait
+  @available(iOS 15.0, *)
+  final public func replaceFunction(isSync is_sync: Swift.Bool = false, functionName function_name: Swift.String, function: @escaping ([Any?]) -> Any?) async -> Any?
+  #endif
+  final public func replaceFunction(isSync is_sync: Swift.Bool = false, functionName function_name: Swift.String, function: @escaping ([Any?]) throws -> Any?, completionHandler completion_handler: ((Any?) -> Swift.Void)?)
+  #if compiler(>=5.3) && $AsyncAwait
+  @available(iOS 15.0, *)
+  final public func replaceFunction(isSync is_sync: Swift.Bool = false, functionName function_name: Swift.String, function: @escaping ([Any?]) throws -> Any?) async -> Any?
+  #endif
+  @objc final public func userContentController(_ userContentController: WebKit.WKUserContentController, didReceive message: WebKit.WKScriptMessage)
+  final public func _recvstat(_ message: Swift.String)
+  final public func _sendstat(_ message: Swift.String = "default")
+  final public func _wait(_ message: Swift.String = "default", action: @escaping (() -> Swift.Void))
+  @objc final public func webView(_ webView: WebKit.WKWebView, runJavaScriptTextInputPanelWithPrompt prompt: Swift.String, defaultText: Swift.String?, initiatedByFrame frame: WebKit.WKFrameInfo, completionHandler: @escaping (Swift.String?) -> Swift.Void)
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers final public class BaseMainActivity {
+  public struct Config {
+    public init(debugModeEnabled: Swift.Bool = false, scrollEnabled: Swift.Bool = true, urlSyncListAccess: Swift.String = "", urlDownloadBase: Swift.String = "", syncSessionConfig: Foundation.URLSessionConfiguration = .ephemeral, webConfig: WebKit.WKWebViewConfiguration = WKWebViewConfiguration())
+  }
+  final public var config: alier.BaseMainActivity.Config {
+    get
+    set
+  }
+  final public var eventHandler: alier.EventHandler?
+  final public var scriptMediator: any alier.ScriptMediator {
+    get
+  }
+  final public var alierDB: alier._AlierDB {
+    get
+  }
+  final public var webView: WebKit.WKWebView {
+    get
+  }
+  @objc deinit
+}
+public protocol MainActivityDelegate : SwiftUI.UIViewRepresentable where Self.UIViewType == WebKit.WKWebView {
+  func updateUIViewOverride(_ uiView: WebKit.WKWebView, context: Self.Context)
+  func onInitNativeInterface(context: Self.Context)
+  func onReturningFromMainFunction(context: Self.Context)
+  func webViewConfig(context: Self.Context, webView: WebKit.WKWebView)
+  func breakPoint()
+}
+extension alier.MainActivityDelegate {
+  public var activity: alier.BaseMainActivity {
+    get
+  }
+  public var config: alier.BaseMainActivity.Config {
+    get
+  }
+  public func makeUIView(context: Self.Context) -> WebKit.WKWebView
+  public func webViewConfig(context: Self.Context, webView: WebKit.WKWebView)
+  public func onInitNativeInterface(context: Self.Context)
+  public func onReturningFromMainFunction(context: Self.Context)
+  public func updateUIViewOverride(_ uiView: WebKit.WKWebView, context: Self.Context)
+  public func updateUIView(_ uiView: WebKit.WKWebView, context: Self.Context)
+  public func breakPoint()
+  public func initSetEnv()
+  public func initRegisterFunction()
+}
+@objc @_inheritsConvenienceInitializers @_Concurrency.MainActor(unsafe) public class LifeCycle_UIApplication : UIKit.UIResponder, UIKit.UIApplicationDelegate {
+  @_Concurrency.MainActor(unsafe) public var param: Swift.String
+  @_Concurrency.MainActor(unsafe) @objc public func application(_ application: UIKit.UIApplication, didFinishLaunchingWithOptions launchOptions: [UIKit.UIApplication.LaunchOptionsKey : Any]? = nil) -> Swift.Bool
+  @_Concurrency.MainActor(unsafe) @objc public func application(_ application: UIKit.UIApplication, configurationForConnecting connectingSceneSession: UIKit.UISceneSession, options: UIKit.UIScene.ConnectionOptions) -> UIKit.UISceneConfiguration
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public init()
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers @_Concurrency.MainActor(unsafe) public class LifeCycle_UIScene : UIKit.UIResponder, UIKit.UIWindowSceneDelegate {
+  @_Concurrency.MainActor(unsafe) public func scene(_ willConectTo: UIKit.UIScene)
+  @_Concurrency.MainActor(unsafe) @objc public func scene(_ scene: UIKit.UIScene, willConnectTo session: UIKit.UISceneSession, options connectionOptions: UIKit.UIScene.ConnectionOptions)
+  @_Concurrency.MainActor(unsafe) @objc public func scene(_ scene: UIKit.UIScene, didUpdate userActivity: Foundation.NSUserActivity)
+  @_Concurrency.MainActor(unsafe) @objc public func scene(_ scene: UIKit.UIScene, openURLContexts URLContexts: Swift.Set<UIKit.UIOpenURLContext>)
+  @_Concurrency.MainActor(unsafe) @objc public func windowScene(_ windowScene: UIKit.UIWindowScene, performActionFor shortcutItem: UIKit.UIApplicationShortcutItem, completionHandler: @escaping (Swift.Bool) -> Swift.Void)
+  @_Concurrency.MainActor(unsafe) @objc public func sceneWillEnterForeground(_ scene: UIKit.UIScene)
+  @_Concurrency.MainActor(unsafe) @objc public func sceneDidBecomeActive(_ scene: UIKit.UIScene)
+  @_Concurrency.MainActor(unsafe) @objc public func sceneWillResignActive(_ scene: UIKit.UIScene)
+  @_Concurrency.MainActor(unsafe) @objc public func sceneDidEnterBackground(_ scene: UIKit.UIScene)
+  @_Concurrency.MainActor(unsafe) @objc public func sceneDidDisconnect(_ scene: UIKit.UIScene)
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public init()
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers public class _PathRegistry {
+  @discardableResult
+  public func mkdir(dirname: Swift.String, subdirs: Swift.String...) throws -> Foundation.URL
+  public func getAppResDir() -> Foundation.URL
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers @_Concurrency.MainActor(unsafe) open class _Coordinator : ObjectiveC.NSObject, WebKit.WKNavigationDelegate, UIKit.UIScrollViewDelegate, WebKit.WKURLSchemeHandler {
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public init()
+  @_Concurrency.MainActor(unsafe) @objc public func webView(_ webView: WebKit.WKWebView, start urlSchemeTask: any WebKit.WKURLSchemeTask)
+  @_Concurrency.MainActor(unsafe) @objc public func webView(_ webView: WebKit.WKWebView, stop urlSchemeTask: any WebKit.WKURLSchemeTask)
+  @_Concurrency.MainActor(unsafe) @objc open func webView(_ webView: WebKit.WKWebView, decidePolicyFor navigationAction: WebKit.WKNavigationAction, decisionHandler: @escaping (WebKit.WKNavigationActionPolicy) -> Swift.Void)
+  @_Concurrency.MainActor(unsafe) open func launchOtherApp(url: Swift.String)
+  @objc deinit
+}
+public class EventHandler {
+  public init(scriptMeditator: any alier.ScriptMediator)
+  public func addListener(category: Swift.String, javaScriptFunctionHandle: alier.HandleObject)
+  public func post(category: Swift.String, message: Any?) throws
+  @objc deinit
+}
+extension Foundation.URL._DirectoryHint : Swift.Equatable {}
+extension Foundation.URL._DirectoryHint : Swift.Hashable {}
+extension alier.AlierLog.LogLevel : Swift.Equatable {}
+extension alier.AlierLog.LogLevel : Swift.Hashable {}
+extension alier.AlierLog.LogLevel : Swift.RawRepresentable {}
+extension alier.AlierDump.LogLevel : Swift.Equatable {}
+extension alier.AlierDump.LogLevel : Swift.Hashable {}
+extension alier.AlierDump.LogLevel : Swift.RawRepresentable {}
+extension alier.DefaultNotification : UserNotificationsUI.UNNotificationContentExtension {}

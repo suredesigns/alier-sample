@@ -1,3 +1,4 @@
+import { AlierModel } from "/alier_sys/AlierModel.js";
 class CounterModel extends AlierModel {
     #count = 0;
     onChange = new MessagePorter();
@@ -20,4 +21,4 @@ class CounterModel extends AlierModel {
     }
 }
 
-await Alier.export({ CounterModel });
+export { CounterModel };

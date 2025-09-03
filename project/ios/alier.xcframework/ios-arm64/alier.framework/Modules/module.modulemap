@@ -1,0 +1,11 @@
+framework module alier {
+  umbrella header "alier.h"
+  export *
+
+  module * { export * }
+}
+
+module alier.Swift {
+  header "alier-Swift.h"
+  requires objc
+}

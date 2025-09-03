@@ -1,7 +1,9 @@
 .DS_Store
+._*
 
-# android
-/project/android/.idea
+.vscode
+.idea
+.kotlin
 
 # https://github.com/github/gitignore/blob/main/Global/Xcode.gitignore
 # https://qiita.com/higan96/items/36d3877a85ab8fc36ea7
@@ -32,6 +34,3 @@ Output
 
 # Node.js
 node_modules/
-
-# project app resource
-/project/app_res/

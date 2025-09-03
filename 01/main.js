@@ -1,6 +1,7 @@
-Object.assign(globalThis, await Alier.import("/alier_sys/AlierFramework.js"));
+import * as AlierFramework from "/alier_sys/AlierFramework.js";
+Object.assign(globalThis, AlierFramework);
 
-async function main() {
+export default async function main() {
     setupAlier();
 
     Alier.View.attach(new Hello());

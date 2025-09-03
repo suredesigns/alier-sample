@@ -1,3 +1,4 @@
+import { ViewLogic } from "/alier_sys/ViewLogic.js";
 class CounterView extends ViewLogic {
     constructor() {
         super();
@@ -19,4 +20,4 @@ class CounterView extends ViewLogic {
     }
 }
 
-await Alier.export({ CounterView });
+export { CounterView };

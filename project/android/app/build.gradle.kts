@@ -3,9 +3,13 @@ plugins {
     alias(libs.plugins.kotlin.android)
 }
 
+kotlin {
+    jvmToolchain(17)
+}
+
 android {
     namespace = "com.example.aliersample"
-    compileSdk = 35
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "com.example.aliersample"
@@ -26,28 +30,29 @@ android {
             )
         }
     }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
-    }
-    kotlinOptions {
-        jvmTarget = "11"
-    }
 
     sourceSets {
         getByName("main") {
-            assets.srcDirs("${projectDir}/../../app_res")
+            assets.srcDirs(layout.buildDirectory.dir("extra-assets"))
         }
     }
 }
 
 dependencies {
-
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.appcompat)
     implementation(libs.material)
-    implementation(files("libs/Alier-release.aar"))
+    implementation(libs.alier)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+}
+
+tasks.register<Sync>("syncAppRes") {
+    from(layout.projectDirectory.dir("../../app_res"))
+    into(layout.buildDirectory.dir("extra-assets/app_res"))
+}
+
+tasks.named("preBuild") {
+    dependsOn(
+        "syncAppRes"
+    )
 }

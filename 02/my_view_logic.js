@@ -1,3 +1,4 @@
+import { ViewLogic } from "/alier_sys/ViewLogic.js";
 class SwitchView extends ViewLogic {
     sub_backup;
 
@@ -61,4 +62,4 @@ class SubView extends ViewLogic {
     }
 }
 
-await Alier.export({ SwitchView });
+export { SwitchView };
