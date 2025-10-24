@@ -4,7 +4,7 @@ class CounterView extends ViewLogic {
         super();
         this.relateElements( this.collectElements( this.loadContainer({ text: `
             <alier-container>
-              <input type="button" id="counter" data-ui-component data-active-events="click" />
+              <alier-button id="counter"></alier-button>
             </alier-container>
         ` })));
 
@@ -15,7 +15,7 @@ class CounterView extends ViewLogic {
     async messageHandler(msg) {
         return await msg.deliver({
             counter  : msg => Alier.Model.countUp(),
-            onChange : msg => this.counter.value = `count: ${msg.param.count}`
+            onChange : msg => this.counter.textContent = `count: ${msg.param.count}`
         });
     }
 }

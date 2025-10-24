@@ -1,4 +1,5 @@
 import { AlierModel } from "/alier_sys/AlierModel.js";
+import { MessagePorter } from "/alier_sys/MessagePorter.js";
 class CounterModel extends AlierModel {
     #count = 0;
     onChange = new MessagePorter();

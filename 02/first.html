@@ -4,12 +4,12 @@
   <body>
     <alier-container id="main_container">
       First Page<br>
-      <input type="button" id="forward" value="forward" data-ui-component data-active-events="click"/><br><br>
-      <input type="button" id="switch" value="switch" data-ui-component data-active-events="click"/><br>
-      <alier-view id="sub_view" data-ui-component style="border:2px solid; padding:10px; margin: 20px;">
+      <alier-button id="forward">forward</alier-button><br><br>
+      <alier-button id="switch">switch</alier-button><br>
+      <alier-view id="sub_view" style="border:2px solid; padding:10px; margin: 20px;">
         <alier-container id="sub_container">
           Sub View<br>
-          <input type="text" id="text" value="text" data-ui-component /><br>
+          <alier-textfield id="text">text</alier-textfield><br>
         </alier-container>
       </alier-view>
     </alier-container>

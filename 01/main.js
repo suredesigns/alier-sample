@@ -3,6 +3,7 @@ Object.assign(globalThis, AlierFramework);
 
 export default async function main() {
     setupAlier();
+    AlierView.setStyleSheets(true, "/alier_sys/ColorTheme_Nihonkai.css", "/alier_sys/AlierGlassy.css");
 
     Alier.View.attach(new Hello());
 }
@@ -14,8 +15,8 @@ class Hello extends ViewLogic {
         // container
         const container = `
           <alier-container>
-            <input type="button" id="button" value="ボタン" data-ui-component data-active-events="click"/>
-            <div id="comment" data-ui-component></div>
+            <alier-button id="button">ボタン</alier-button>
+            <alier-text id="comment"></alier-text>
           </alier-container>
         `;
 
@@ -31,7 +32,7 @@ class Hello extends ViewLogic {
         return await msg.deliver({
             button: msg => {
                 // commentにhello alierを挿入する
-                this.comment.innerText = "Hello, alier!"
+                this.comment.value = "Hello, alier!";
             }
         });
     }
